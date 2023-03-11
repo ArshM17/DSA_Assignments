@@ -39,7 +39,7 @@ node* construct(int instart, int inend, int postend, int inorder[], int postorde
 //			break;
 //		}
 //	}
-	root->left = construct(instart, rootIndex-1, postend-inend+rootIndex-1, inorder, postorder);
+	root->left = construct(instart, rootIndex-1, postend-(inend-rootIndex)-1, inorder, postorder);
 	root->right = construct(rootIndex+1, inend, postend-1, inorder, postorder);
 	return root;
 }
@@ -53,16 +53,16 @@ void inorderTraversal(node* root){
 
 void postorderTraversal(node* root){
 	if(root == NULL) return;
-	inorderTraversal(root->left);
-	inorderTraversal(root->right);
+	postorderTraversal(root->left);
+	postorderTraversal(root->right);
 	printf("%d ", root->val);
 }
 
 void preorderTraversal(node* root){
 	if(root == NULL) return;
 	printf("%d ", root->val);
-	inorderTraversal(root->left);
-	inorderTraversal(root->right);
+	preorderTraversal(root->left);
+	preorderTraversal(root->right);
 }
 
 int main(){
@@ -70,20 +70,23 @@ int main(){
 //	int postorder[] = {5,99,1,89,0,9,15,100,7,20,3};
 	int inorder[] = {9,3,15,20,7};
 	int postorder[] = {9,15,7,20,3};
-	node* root = constructTree(inorder, postorder, 5);
+//	int inorder[] = {1,2,4,3,5};
+//	int postorder[] = {1,4,5,3,2};
+	int size = sizeof(postorder)/sizeof(postorder[0]);
+	node* root = constructTree(inorder, postorder, size);
 	inorderTraversal(root);
 	printf("\n");
-//	postorderTraversal(root);
-	preorderTraversal(root);
+	postorderTraversal(root);
+//	preorderTraversal(root);
 //	printf("%d ",root->val);
 //	printf("%d ",root->left->val);
 //	printf("%d ",root->right->val);
 //	printf("%d ",root->right->left->val);
 //	printf("%d ",root->right->right->val);
-	return 0;
+//	return 0;
 }
 
 
 
 
-
+ 
