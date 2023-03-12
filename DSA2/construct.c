@@ -29,16 +29,9 @@ node* constructTree(int inorder[], int postorder[], int size){
 
 
 node* construct(int instart, int inend, int postend, int inorder[], int postorder[]){
-	if(instart > inend || postend<0) return NULL;
+	if(instart > inend) return NULL;
 	node* root = newNode(postorder[postend]);
 	int rootIndex = linearSearch(inorder, instart, root->val);
-//	int rootIndex = instart;
-//	for(int i = instart;i<inend;i++){
-//		if(inorder[i] == root->val){
-//			rootIndex = i;
-//			break;
-//		}
-//	}
 	root->left = construct(instart, rootIndex-1, postend-(inend-rootIndex)-1, inorder, postorder);
 	root->right = construct(rootIndex+1, inend, postend-1, inorder, postorder);
 	return root;
@@ -66,10 +59,10 @@ void preorderTraversal(node* root){
 }
 
 int main(){
-//	int inorder[] = {5,1,99,9,0,89,3,15,20,100,7};
-//	int postorder[] = {5,99,1,89,0,9,15,100,7,20,3};
-	int inorder[] = {9,3,15,20,7};
-	int postorder[] = {9,15,7,20,3};
+	int inorder[] = {5,1,99,9,0,89,3,15,20,100,7};
+	int postorder[] = {5,99,1,89,0,9,15,100,7,20,3};
+//	int inorder[] = {9,3,15,20,7};
+//	int postorder[] = {9,15,7,20,3};
 //	int inorder[] = {1,2,4,3,5};
 //	int postorder[] = {1,4,5,3,2};
 	int size = sizeof(postorder)/sizeof(postorder[0]);
@@ -77,16 +70,5 @@ int main(){
 	inorderTraversal(root);
 	printf("\n");
 	postorderTraversal(root);
-//	preorderTraversal(root);
-//	printf("%d ",root->val);
-//	printf("%d ",root->left->val);
-//	printf("%d ",root->right->val);
-//	printf("%d ",root->right->left->val);
-//	printf("%d ",root->right->right->val);
-//	return 0;
-}
-
-
-
-
- 
+	return 0;
+} 
