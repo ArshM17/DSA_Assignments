@@ -11,19 +11,23 @@ typedef struct bst{
 	node* root;
 }bst;
 
-bst* initBST(int val){
+bst* initBST(){
 	bst* tree = (bst*)malloc(sizeof(bst));
-	tree->root = (node*)malloc(sizeof(node));
-	tree->root->left = NULL;
-	tree->root->right = NULL;
-	tree->root->data = val;
+	tree->root = NULL;
 	return tree;
 }
 
 void add(node* root,int val);
 
 void addNode(bst* tree, int val){
-	add(tree->root,val);
+	if(tree->root == NULL){
+		tree->root = (node*)malloc(sizeof(node));
+		tree->root->left = NULL;
+		tree->root->right = NULL;
+		tree->root->data = val;
+	}else{
+		add(tree->root,val);
+	}
 }
 
 void add(node* root, int val){
@@ -52,14 +56,14 @@ void displayTree(bst* tree){
 
 void display(node* root){
 	if(root==NULL) return;
-	printf("%d ",root->data);
 	display(root->left);
+	printf("%d ",root->data);
 	display(root->right);
 }
 
 
 int main(){
-	bst* myBST = initBST(1);
+	bst* myBST = initBST();
 	addNode(myBST,3);
 	addNode(myBST,7);
 	addNode(myBST,17);

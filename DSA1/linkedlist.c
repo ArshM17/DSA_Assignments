@@ -6,33 +6,46 @@ typedef struct node{
 	struct node* next;
 }node;
 
-typedef node* list;
+typedef struct linkedList{
+	node* head;
+	int size;
+}linkedList;
 
-void printList(list* head){
-	node* temp = *head;
-	while(temp){
-		printf("%d\n",temp->val);
-		temp = temp->next;
-	}
-	printf("\n");
+linkedList* newLinkedList(){
+	linkedList* new = malloc(sizeof(linkedList));
+	new->head = NULL;
+	new->size = 0;
+	return new;
 }
 
-void appendNode(list* head,int val){
-	if(!*head){
-		*head = malloc(sizeof(node));
-		(*head)->val = val;
-		(*head)->next = NULL;
+//typedef node* list;
+
+void printList(linkedList* list){
+	node* temp = list->head;
+	while(temp){
+		printf("%d->",temp->val);
+		temp = temp->next;
+	}
+	printf("NULL\n");
+}
+
+void appendNode(linkedList* list, int val){
+	node* head = list->head;
+	if(!head){
+		head = malloc(sizeof(node));
+		head->val = val;
+		head->next = NULL;
+		list->head = head;
 		return;
 	}
-	node* temp = *head;
-	while(temp->next){
-		temp = temp->next;
+	while(head->next){
+		head = head->next;
 	}
-	temp->next = malloc(sizeof(node));
-	temp->next->next = NULL;
-	temp->next->val = val;
+	head->next = malloc(sizeof(node));
+	head->next->next = NULL;
+	head->next->val = val;
 }
-
+/*
 void appendNodeAt(list *head,int val,int position){
 	if(!*head){
 		appendNode(head,val);
@@ -90,21 +103,18 @@ void reverse(list* head){
 	second->next = first;
 	(*head)->next = NULL;
 	*head = second;
-}
+}*/
 
 int main(){
-	list head = NULL;
-	appendNode(&head,10);
-	appendNode(&head,20);
-	appendNode(&head,30);
-	appendNode(&head,40);
-	appendNode(&head,50);
-	appendNode(&head,60);
-	appendNodeAt(&head,1234,105555);
-	printList(&head);
-	
-	list head2 = NULL;
-	appendNodeAt(&head2,234,1234);
-	reverse(&head2);
-	printList(&head2);
+	linkedList* list = newLinkedList();
+	appendNode(list,10);
+	appendNode(list,20);
+	appendNode(list,30);
+	appendNode(list,40);
+	appendNode(list,50);
+	appendNode(list,60);
+	printList(list);
 }
+
+
+
