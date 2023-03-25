@@ -75,15 +75,28 @@ bst* search(node* root, int val){
 void removeNode(bst* tree, int val){
 	if(tree->root == NULL) return;
 	if(search(tree, val) == NULL) return;
+	if(tree->root->data == val){
+		tree->root = NULL;
+		return;
+	}
 	remove(tree->root, val);
 }
 
 void remove(node* root, int val){
 	if(root->data == val){
-		
+		node* temp = root;
+		if(temp->right != NULL){
+			temp = temp->right;
+			while(temp->left != NULL){
+				temp = temp->left;
+			}
+			
+		}
 	}else if(root->data < val){
 		remove(root->right, val);
-	} 
+	}else{
+		remove(root->left,val);
+	}
 	
 }
 
