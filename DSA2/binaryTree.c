@@ -32,25 +32,65 @@ void addNode(bst* tree, int val){
 
 void add(node* root, int val){
 	if(val > root->data){
-		if(root->right==NULL){
+		if(root->right == NULL){
 			root->right = (node*)malloc(sizeof(node));
 			root->right->data = val;
 			return;
 		}
 		add(root->right,val);
 	}else{
-		if(root->left==NULL){
+		if(root->left == NULL){
 			root->left = (node*)malloc(sizeof(node));
 			root->left->data = val;
 			return;
 		}
-		add(root->left,val);
+		add(root->left, val);
 	}
+}
+
+bst* search(node* root, int val);
+
+bst* searchNode(bst* tree, int val){
+	if(tree->root == NULL) return NULL;
+	return search(tree->root, val);
+}
+
+bst* search(node* root, int val){
+	if(root->data == val){
+		bst* temp = initBST();
+		temp->root = root;
+		return temp;
+	}
+	if(root->left == NULL && root->right == NULL){
+		printf("Not found");
+		return NULL;
+	}
+	if(root->data < val){
+		search(root->right, val);
+	}else if(root->data > val){
+		search(root->left, val);
+	}
+}
+
+void removeNode(bst* tree, int val){
+	if(tree->root == NULL) return;
+	if(search(tree, val) == NULL) return;
+	remove(tree->root, val);
+}
+
+void remove(node* root, int val){
+	if(root->data == val){
+		
+	}else if(root->data < val){
+		remove(root->right, val);
+	} 
+	
 }
 
 void display(node* root);
 
 void displayTree(bst* tree){
+	if(tree == NULL) return;
 	display(tree->root);
 }
 
@@ -73,7 +113,9 @@ int main(){
 	addNode(myBST,19);
 	addNode(myBST,21);
 	addNode(myBST,2);
-	displayTree(myBST);
+//	bst* temp = searchNode(myBST, 15);
+//	displayTree(myBST);
+//	displayTree(temp);
 }
 
 
