@@ -72,32 +72,67 @@ bst* search(node* root, int val){
 	}
 }
 
-void removeNode(bst* tree, int val){
-	if(tree->root == NULL) return;
-	if(search(tree, val) == NULL) return;
-	if(tree->root->data == val){
-		tree->root = NULL;
-		return;
+int replacement(node* root){
+	if(root->right != NULL){
+		root = root->right;
+		while(root->left != NULL){
+			root = root->left;
+		}
+	}else{
+		root = root->left;
+		while(root->right != NULL){
+			root = root->right;
+		}
 	}
-	remove(tree->root, val);
+	return root->data;
 }
 
-void remove(node* root, int val){
-	if(root->data == val){
-		node* temp = root;
-		if(temp->right != NULL){
-			temp = temp->right;
-			while(temp->left != NULL){
-				temp = temp->left;
-			}
-			
-		}
-	}else if(root->data < val){
-		remove(root->right, val);
-	}else{
-		remove(root->left,val);
-	}
+node* rem(node* root, int val);
+
+void removeNode(bst* tree, int val){
+	if(tree == NULL || tree->root == NULL) return;
+/*	if(search(tree, val) == NULL) return;
+	if(tree->root->data == val){
+		int temp = replacement(tree->root);
+		node* tempNode = remove(tree->root, temp);
+		tree->root = tempNode;
+		return;
+	}*/
+	node* tempRoot = rem(tree->root, val);
+//	printf("%d", tempRoot->data);
+	tree->root = tempRoot;
 	
+}
+
+node* rem(node* root, int val){
+	if(root->data == val){
+//		printf("Here");
+		if(root->left == NULL){
+			node* temp = root;
+			root = root->right;
+			free(temp);
+			return root;
+		}
+		
+		if(root->right == NULL){
+			node* temp = root;
+			root = root->left;
+			free(temp);
+			return root;
+		}		
+//		printf("Here");
+		int temp = replacement(root);
+//		printf("---%d---",temp);
+		root = rem(root, temp);
+		root->data = temp;
+//		return root;
+		
+	}else if(root->data < val){
+		root->right = rem(root->right, val);
+	}else{
+		root->left = rem(root->left,val);
+	}
+	return root;
 }
 
 void display(node* root);
@@ -126,9 +161,10 @@ int main(){
 	addNode(myBST,19);
 	addNode(myBST,21);
 	addNode(myBST,2);
-//	bst* temp = searchNode(myBST, 15);
-//	displayTree(myBST);
-//	displayTree(temp);
+	displayTree(myBST);
+	removeNode(myBST,7);
+	printf("\n");
+	displayTree(myBST);
 }
 
 
