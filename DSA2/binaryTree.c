@@ -91,22 +91,12 @@ node* rem(node* root, int val);
 
 void removeNode(bst* tree, int val){
 	if(tree == NULL || tree->root == NULL) return;
-/*	if(search(tree, val) == NULL) return;
-	if(tree->root->data == val){
-		int temp = replacement(tree->root);
-		node* tempNode = remove(tree->root, temp);
-		tree->root = tempNode;
-		return;
-	}*/
 	node* tempRoot = rem(tree->root, val);
-//	printf("%d", tempRoot->data);
-	tree->root = tempRoot;
-	
+	tree->root = tempRoot;	
 }
 
 node* rem(node* root, int val){
 	if(root->data == val){
-//		printf("Here");
 		if(root->left == NULL){
 			node* temp = root;
 			root = root->right;
@@ -120,13 +110,9 @@ node* rem(node* root, int val){
 			free(temp);
 			return root;
 		}		
-//		printf("Here");
 		int temp = replacement(root);
-//		printf("---%d---",temp);
 		root = rem(root, temp);
-		root->data = temp;
-//		return root;
-		
+		root->data = temp;	
 	}else if(root->data < val){
 		root->right = rem(root->right, val);
 	}else{
@@ -162,7 +148,7 @@ int main(){
 	addNode(myBST,21);
 	addNode(myBST,2);
 	displayTree(myBST);
-	removeNode(myBST,7);
+	removeNode(myBST,2);
 	printf("\n");
 	displayTree(myBST);
 }
