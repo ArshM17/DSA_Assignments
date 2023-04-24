@@ -135,6 +135,25 @@ void display(node* root){
 	display(root->right);
 }
 
+void descendantsOf(bst* tree, int val){
+	node* root = tree->root;
+	node* requiredNode = search(root, val)->root;
+	display(requiredNode);
+}
+
+void destroy(node* root){
+	if(root == NULL) return;
+	destroy(root->left);
+	node* temp = root->right;
+	free(root);
+	destroy(temp);
+}
+
+void destroyTree(bst* tree){
+	node* root = tree->root;
+	destroy(root);
+	tree->root = NULL;
+}
 
 int main(){
 	bst* myBST = initBST();
@@ -148,9 +167,11 @@ int main(){
 	addNode(myBST,21);
 	addNode(myBST,2);
 	displayTree(myBST);
-	removeNode(myBST,2);
+//	removeNode(myBST, 2);
+	destroyTree(myBST);
 	printf("\n");
 	displayTree(myBST);
+//	descendantsOf(myBST, 17);
 }
 
 
