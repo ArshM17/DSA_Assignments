@@ -145,7 +145,7 @@ void displayTree(bst* tree){
 void display(node* root){
 	if(root==NULL) return;
 	display(root->left);
-	printf("%d ",root->data);
+	printf("%d %d",root->data, root->balanceFactor);
 	display(root->right);
 }
 
@@ -156,7 +156,7 @@ void displayTree2(bst* tree){
 
 void display2(node* root){
 	if(root==NULL) return;
-	printf("%d ",root->data);
+//	printf("%d %d",root->data, root);
 	display2(root->left);
 	display2(root->right);
 }
@@ -174,6 +174,6 @@ int main(){
 	addNode(tree, 80);
 	displayTree(tree);
 	printf("\n");
-	displayTree2(tree);
+//	displayTree2(tree);
 }
 
