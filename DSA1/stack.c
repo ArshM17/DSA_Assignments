@@ -1,12 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<limits.h>
-
-typedef struct stack{
-	int *array;
-	int top;
-	int size;
-}stack;
+#include "stack.h"
 
 void stackInit(stack* s,int size){
 	s->size = size;
@@ -32,10 +27,10 @@ int peek(stack* s){
 	return s->array[s->top];
 }
 
-int push(stack* s, int val){
+void push(stack* s, int val){
 	if(isFull(s)){
-		printf("%d\n",INT_MAX);
-		return INT_MAX;
+		printf("Stack full");
+		return;
 	}
 	s->top =  s->top + 1;
 	s->array[s->top] = val;
@@ -46,8 +41,7 @@ int pop(stack* s){
 		printf("%d\n",INT_MAX);
 		return INT_MAX;
 	}
-	s->top = (s->top) - 1;
-	return s->array[s->top];
+	return s->array[s->top--];
 }
 
 void displayStack(stack* s){
@@ -59,7 +53,7 @@ void displayStack(stack* s){
 	}
 }
 
-int main(){
+/*int main(){
 	stack s;
 	stackInit(&s,10);
 	push(&s,10);
@@ -68,23 +62,23 @@ int main(){
 	push(&s,40);
 	pop(&s);
 	pop(&s);
-	pop(&s);
-	displayStack(&s);
-	pop(&s);
-	pop(&s);
-	push(&s,40);
-	push(&s,40);
-	push(&s,40);
-	push(&s,40);
-	push(&s,40);
-	push(&s,40);
-	push(&s,40);
-	push(&s,40);
-	push(&s,40);
-	push(&s,40);
-	push(&s,40);
-	push(&s,40);
-	push(&s,40);
-	displayStack(&s);
+	//pop(&s);
+	//displayStack(&s);
+	//pop(&s);
+	//pop(&s);
+	//push(&s,40);
+	//push(&s,40);
+	//push(&s,40);
+	//push(&s,40);
+	//push(&s,40);
+	//push(&s,40);
+	//push(&s,40);
+	//push(&s,40);
+	//push(&s,40);
+	//push(&s,40);
+	//push(&s,40);
+	//push(&s,40);
+	//push(&s,40);
+	//displayStack(&s);
 	return 0;
-}
+}*/
