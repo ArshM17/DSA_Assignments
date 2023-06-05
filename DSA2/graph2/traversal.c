@@ -4,6 +4,7 @@
 #include"stack.h"
 #include"queue.h"
 #include"adjacencyList.h"
+#include"heap.h"
 
 void dfs(int vertex, graph* g){
 	stack s;
@@ -54,3 +55,45 @@ void bfs(int vertex, graph* g){
 		}
 	}
 }
+
+graph minimumSpanningTreeOf(graph* g, int startVertex){
+	graph minST;
+	initGraph(&minST, g->vertices);
+	minHeap* heap = createMinHeap();
+	node* curr;
+	int* visited = calloc(g->vertices, sizeof(int));
+	int visitedCount = 0;
+	visited[startVertex] = 1;
+	visitedCount++;
+	curr = g->adjacencyList[startVertex];
+	while(curr){
+		insertNode(heap, curr);
+		curr = curr->next;
+	}
+	//printf("%d ",heap->heapSize);
+	while(visitedCount < g->vertices){
+		curr = extractMin(heap);
+		if(visited[curr->data] == 0){
+			addEdge(&minST, curr->parent, curr->data, curr->weight);
+			addEdge(&minST, curr->data, curr->parent, curr->weight);
+			visited[curr->data] = 1;
+			visitedCount++;
+		}else{
+			free(curr);
+			continue;
+		}
+		curr = g->adjacencyList[curr->data];
+		while(curr){
+			if(visited[curr->data] == 0){
+				insertNode(heap, curr);
+			}
+			curr = curr->next;
+		}
+	}
+	return minST;
+}
+
+
+
+
+

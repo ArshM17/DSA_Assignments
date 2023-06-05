@@ -16,6 +16,7 @@ void addEdge(graph* g, int parent, int vertex, int weight){
 	new->data = vertex;
 	new->weight = weight;
 	new->next = NULL;
+	new->parent = parent;
 	//printf("%d ", parent);
 	if(curr == NULL){
 		g->adjacencyList[parent] = new;
@@ -30,8 +31,9 @@ void addEdge(graph* g, int parent, int vertex, int weight){
 void displayAdjacencyList(graph* g){	
 	for(int i = 0;i<g->vertices;i++){
 		node* curr = g->adjacencyList[i];
+		printf("%c: ",i+97);
        		while(curr){
-        		printf("%d ",curr->data);
+        		printf("%c ",curr->data +97);
                         curr = curr->next;
                 }
                 printf("\n");

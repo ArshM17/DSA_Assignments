@@ -5,6 +5,7 @@ typedef struct node{
 	int data;
 	struct node* next;
 	int weight;
+	int parent;
 }node;
 
 typedef struct graph{
