@@ -68,13 +68,13 @@ int countComponents(int** matrix,int vertexCount){
 int explore(int*** matrix, int vertex, int vertexCount){
 	int** mat = *matrix;
 	int count = 0;
+	//-2 means vertex has been visited already so no need to explore again
 	if(mat[vertex][vertex] == -2) return 0;
 	for(int i = 0;i<vertexCount;i++){
 		if(mat[vertex][i] == -2) continue;
 		if(vertex == i){
 			count++;
 			mat[vertex][i] = -2;
-			//mat[i][vertex] = -2;
 			printf("%d* ",i);
 			continue;
 		}
@@ -88,6 +88,5 @@ int explore(int*** matrix, int vertex, int vertexCount){
 	}
 	return count;
 }
-
 
 

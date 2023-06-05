@@ -16,7 +16,7 @@ int main(int argc, char* argv[]){
 	}
 	int vertexCount;
 	fscanf(file, "%d", &vertexCount);
-	int** matrix = NULL;
+	int** matrix;
 	createAdjacencyMatrix(&matrix, file, vertexCount);
 	fclose(file);
 	displayGraph(matrix, vertexCount);
