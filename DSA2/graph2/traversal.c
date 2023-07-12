@@ -73,7 +73,7 @@ graph minimumSpanningTreeOf(graph* g, int startVertex){
 	//printf("%d ",heap->heapSize);
 	while(visitedCount < g->vertices){
 		curr = extractMin(heap);
-		if(visited[curr->data] == 0){
+		if(visited[curr->data] != 1){
 			addEdge(&minST, curr->parent, curr->data, curr->weight);
 			addEdge(&minST, curr->data, curr->parent, curr->weight);
 			visited[curr->data] = 1;
@@ -84,7 +84,7 @@ graph minimumSpanningTreeOf(graph* g, int startVertex){
 		}
 		curr = g->adjacencyList[curr->data];
 		while(curr){
-			if(visited[curr->data] == 0){
+			if(visited[curr->data] != 1){
 				insertNode(heap, curr);
 			}
 			curr = curr->next;
@@ -92,8 +92,4 @@ graph minimumSpanningTreeOf(graph* g, int startVertex){
 	}
 	return minST;
 }
-
-
-
-
 

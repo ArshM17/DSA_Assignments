@@ -120,7 +120,7 @@ void insert(tree* root, int val){
 		return;
 	}
 	
-	node* temp = *root, *parent = NULL;
+	node *temp = *root, *parent = NULL;
 	while(temp){
 		parent = temp;
 		if(temp->val == val){
